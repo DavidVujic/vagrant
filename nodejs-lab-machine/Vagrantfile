@@ -1,0 +1,16 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+	config.vm.box = "ubuntu1410"	
+	config.vm.provision :shell, path: "Scripts/Install-Apps.sh"
+	
+	config.vm.provider "virtualbox" do |v|
+		v.name = "node-lab-machine"
+		v.gui = true
+		v.cpus = 1
+		v.memory = 8192
+	end
+end

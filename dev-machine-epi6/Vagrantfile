@@ -1,0 +1,36 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+	config.vm.box = "win2012r2"
+
+	config.vm.communicator = "winrm"
+
+	# set a random hostname (beginning with VM) to avoid naming conflicts
+	config.vm.hostname = 'VM'+rand(1..1000000).to_s
+
+	# forward RDP and WINRS ports
+	config.vm.network :forwarded_port, guest: 3389, host: 3377, id: "rdp", auto_correct: false
+	config.vm.network :forwarded_port, guest: 5985, host: 5985, id: "winrm", auto_correct: true
+	config.windows.set_work_network = true
+
+	config.vm.provision :shell, path: "../scripts/Install-Chocolatey.ps1"
+	config.vm.provision :shell, inline: '[Environment]::SetEnvironmentVariable("Path", $env:Path + ";C:\Chocolatey\bin", "Machine")'
+
+	config.vm.provision :shell, path: "Scripts/Install-Apps.ps1"
+
+	config.vm.provision :shell, path: "../scripts/Install-IIS.ps1"
+	config.vm.provision :shell, path: "../scripts/Modify-IIS-Version.ps1"
+
+	config.vm.provision :shell, path: "../scripts/Set-License-Key.ps1"
+
+	config.vm.provider "virtualbox" do |v|
+		v.name = "dev-machine-epi6"
+		v.gui = true
+		v.cpus = 1
+		v.memory = 6144
+		v.customize ["setextradata", :id, "CustomVideoMode1", "1600x900x32"]
+	end
+end

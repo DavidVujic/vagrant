@@ -1,0 +1,64 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+	config.vm.box = "win2012r2"
+	config.vm.communicator = "winrm"
+
+	config.windows.set_work_network = true
+
+	config.vm.define "web" do |web|
+		web.vm.network :forwarded_port, guest: 5985, host: 5985, id: "winrm", auto_correct: true
+	    
+	    web.vm.network "private_network", ip: "10.0.0.10"
+	    
+	    # set a random hostname (beginning with VM) to avoid naming conflicts
+		web.vm.hostname = 'VM'+rand(1..1000000).to_s
+
+	    web.vm.provision :shell, path: "../scripts/Install-Chocolatey.ps1"
+		web.vm.provision :shell, inline: '[Environment]::SetEnvironmentVariable("Path", $env:Path + ";C:\Chocolatey\bin", "Machine")'
+
+		web.vm.provision :shell, path: "Scripts/web/Install-Apps.ps1"
+		web.vm.provision :shell, path: "../scripts/Install-IIS.ps1"
+
+		web.vm.provision :shell, path: "../scripts/Set-License-Key.ps1"
+
+	    web.vm.provider "virtualbox" do |v|
+			v.name = "devweb"
+			v.gui = true
+			v.cpus = 1
+			v.memory = 6144
+			v.customize ["setextradata", :id, "CustomVideoMode1", "1600x900x32"]
+		end
+	  end
+
+	  config.vm.define "db" do |db|	  
+	  	db.vm.network :forwarded_port, guest: 5985, host: 5986, id: "winrm", auto_correct: true 
+	    
+	    db.vm.network "private_network", ip: "10.0.0.11"
+	    
+	    # set a random hostname (beginning with VM) to avoid naming conflicts
+		db.vm.hostname = 'VM'+rand(1..1000000).to_s
+
+		db.vm.network :forwarded_port, guest: 3389, host: 3377, id: "rdp", auto_correct: false
+
+		db.vm.provision :shell, path: "../scripts/Install-Chocolatey.ps1"
+		db.vm.provision :shell, inline: '[Environment]::SetEnvironmentVariable("Path", $env:Path + ";C:\Chocolatey\bin", "Machine")'
+
+		db.vm.provision :shell, path: "Scripts/db/Install-Apps.ps1"
+		
+		db.vm.provision :shell, path: "../scripts/Enable-RDP.ps1"
+		db.vm.provision :shell, path: "../scripts/Modify-Firewall.ps1"
+
+		db.vm.provision :shell, path: "../scripts/Set-License-Key.ps1"	
+
+	    db.vm.provider "virtualbox" do |v|
+			v.gui = false
+			v.name = "devdb"
+			v.cpus = 1
+			v.memory = 4096
+		end
+	  end
+end
