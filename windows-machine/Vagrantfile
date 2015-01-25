@@ -19,7 +19,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	config.vm.provision :shell, inline: '[Environment]::SetEnvironmentVariable("Path", $env:Path + ";C:\Chocolatey\bin", "Machine")'
 
 	config.vm.provider "virtualbox" do |v|
-		v.name = "windowsmaskin"
+		v.name = "windowsmachine"
 		v.gui = true
 		v.cpus = 1
 		v.memory = 6144
