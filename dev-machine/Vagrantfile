@@ -27,7 +27,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 		v.name = "devmachine"
 		v.gui = true
 		v.cpus = 1
-		v.memory = 6144
+		v.memory = 8192
 		v.customize ["setextradata", :id, "CustomVideoMode1", "1600x900x32"]
 	end
 end
