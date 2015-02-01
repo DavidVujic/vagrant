@@ -8,8 +8,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
 	config.vm.communicator = "winrm"
 
-	# set a random hostname (beginning with VM) to avoid naming conflicts
-	config.vm.hostname = 'VM'+rand(1..1000000).to_s
+	config.vm.hostname = 'devmachine-epi6'
 
 	# forward RDP and WINRS ports
 	config.vm.network :forwarded_port, guest: 3389, host: 3377, id: "rdp", auto_correct: false
@@ -27,7 +26,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	config.vm.provision :shell, path: "../scripts/Set-License-Key.ps1"
 
 	config.vm.provider "virtualbox" do |v|
-		v.name = "dev-machine-epi6"
+		v.name = "devmachine-epi6"
 		v.gui = true
 		v.cpus = 1
 		v.memory = 6144

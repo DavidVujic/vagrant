@@ -8,8 +8,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
 	config.vm.communicator = "winrm"
 
-	# set a random hostname (beginning with VM) to avoid naming conflicts
-	config.vm.hostname = 'VM'+rand(1..1000000).to_s
+	config.vm.hostname = 'sqlserverdevmachine'
 
 	# forward RDP, WINRS ans SQL Server ports
 	config.vm.network :forwarded_port, guest: 3389, host: 3377, id: "rdp", auto_correct: false
