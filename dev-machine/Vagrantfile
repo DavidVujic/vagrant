@@ -8,7 +8,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
 	config.vm.communicator = "winrm"
 
-	config.vm.hostname = 'devmachine'
+	config.vm.hostname = "devmachine"
 
 	# forward RDP and WINRS ports
 	config.vm.network :forwarded_port, guest: 3389, host: 3377, id: "rdp", auto_correct: false

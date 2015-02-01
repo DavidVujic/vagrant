@@ -14,7 +14,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	    
 	    web.vm.network "private_network", ip: "10.0.0.10"
 	    
-	    web.vm.hostname = 'devweb'
+	    web.vm.hostname = "devweb"
 
 	    web.vm.provision :shell, path: "../scripts/Install-Chocolatey.ps1"
 		web.vm.provision :shell, inline: '[Environment]::SetEnvironmentVariable("Path", $env:Path + ";C:\Chocolatey\bin", "Machine")'
@@ -38,7 +38,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	    
 	    db.vm.network "private_network", ip: "10.0.0.11"
 	    
-	    db.vm.hostname = 'devdb'
+	    db.vm.hostname = "devdb"
 
 		db.vm.network :forwarded_port, guest: 3389, host: 3377, id: "rdp", auto_correct: false
 
