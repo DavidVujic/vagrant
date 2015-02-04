@@ -16,7 +16,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	config.windows.set_work_network = true
 
 	config.vm.provision :shell, path: "../scripts/Install-Chocolatey.ps1"
-	config.vm.provision :shell, inline: '[Environment]::SetEnvironmentVariable("Path", $env:Path + ";C:\Chocolatey\bin", "Machine")'
 
 	config.vm.provision :shell, path: "Scripts/Install-Apps.ps1"
 
