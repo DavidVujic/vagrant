@@ -1,1 +1,1 @@
-cinst mssqlserver2012express -InstallArguments "/SECURITYMODE=SQL /SAPWD=P@55word"
+cinst mssqlserver2012express -InstallArguments "/SECURITYMODE=SQL /SAPWD=P@55word" -y
