@@ -19,7 +19,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	
 	config.vm.provision :shell, path: "../scripts/Install-Chocolatey.ps1"
 
-	#config.vm.provision :shell, path: "Scripts/Install-Apps.ps1"
+	config.vm.provision :shell, path: "Scripts/Install-Apps.ps1"
 	
 	# Different powershell when the box is server 2012 or windows 8
 	#config.vm.provision :shell, path: "../scripts/Install-IIS.ps1"
