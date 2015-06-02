@@ -13,12 +13,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	config.windows.set_work_network = true
 	
 	config.vm.provision :shell, path: "../scripts/Install-Chocolatey.ps1"
-	config.vm.provision :shell, inline: '[Environment]::SetEnvironmentVariable("Path", $env:Path + ";C:\Chocolatey\bin", "Machine")'
-
+	
 	config.vm.provider "virtualbox" do |v|
 		v.name = "windowsmachine"
 		v.gui = true
-		v.cpus = 1
+		v.cpus = 2
 		v.memory = 6144
 		v.customize ["setextradata", :id, "CustomVideoMode1", "1600x900x32"]
 	end

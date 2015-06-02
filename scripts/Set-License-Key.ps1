@@ -1,4 +1,5 @@
 $strFileName = "license.txt"
+$licensekey = ""
 
 slmgr -upk
 
@@ -11,4 +12,6 @@ If (Test-Path $strFileName) {
 	    }
 	}
 	slmgr -ipk $licensekey
+} Else {
+    Write-Host "The license file is missing. Activate windows manually when logged in."
 }
