@@ -6,14 +6,11 @@ VAGRANTFILE_API_VERSION = "2"
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	config.vm.box = "ubuntu/trusty64"	
 	config.vm.provision :shell, path: "Scripts/Install-Node.sh"
-	config.vm.provision :shell, path: "Scripts/Install-Mono.sh"
-	config.vm.provision :shell, path: "Scripts/Install-libuv.sh"
-	config.vm.provision :shell, path: "Scripts/Install-DNVM.sh"
 	
 	config.vm.provider "virtualbox" do |v|
 		v.name = "aspnet5-lab-machine"
 		v.gui = true
-		v.cpus = 2
+		v.cpus = 1
 		v.memory = 8192
 	end
 end
