@@ -1,7 +1,7 @@
-sudo apt-get update
-wget https://nodejs.org/dist/v0.12.7/node-v0.12.7.tar.gz
-tar xzf node-v0.12.7.tar.gz
-cd node-v0.12.7
-./configure
-make
-make install
+echo '**********'
+echo 'running Install-Node script'
+echo '**********'
+
+curl -sL https://deb.nodesource.com/setup_0.12 | sudo bash -
+
+sudo apt-get install -y nodejs
