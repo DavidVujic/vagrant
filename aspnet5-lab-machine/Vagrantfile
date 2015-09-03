@@ -9,10 +9,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	config.vm.provision :shell, path: "Scripts/Install-Mono.sh"
 	config.vm.provision :shell, path: "Scripts/Install-libuv.sh"
 	config.vm.provision :shell, path: "Scripts/Install-DNVM.sh"
-	config.vm.provision :shell, path: "Scripts/Install-SublimeText.sh"
-	
+
 	#config.vm.provision :shell, path: "Scripts/Reset-npm-path.sh"
-	#config.vm.provision :shell, path: "Scripts/Install-Yeoman.sh"
+	config.vm.provision :shell, path: "Scripts/Install-Yeoman.sh"
+	config.vm.provision :shell, path: "Scripts/Install-Atom.sh"
 
 	config.vm.provider "virtualbox" do |v|
 		v.name = "aspnet5-lab-machine"
