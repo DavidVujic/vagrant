@@ -4,13 +4,18 @@
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-	config.vm.box = "box-cutter/ubuntu1404-desktop"	
+	config.vm.box = "ubuntu/vivid64"
+	
+	config.vm.network :forwarded_port, guest: 5000, host: 5000, id: "localhost", auto_correct: false
+
+	config.vm.provision :shell, path: "Scripts/Install-Ubuntu-GUI.sh"
+	config.vm.provision :shell, path: "Scripts/Set-Locale-Swedish.sh"
+
 	config.vm.provision :shell, path: "Scripts/Install-Node.sh"
 	config.vm.provision :shell, path: "Scripts/Install-Mono.sh"
 	config.vm.provision :shell, path: "Scripts/Install-libuv.sh"
 	config.vm.provision :shell, path: "Scripts/Install-DNVM.sh"
 
-	#config.vm.provision :shell, path: "Scripts/Reset-npm-path.sh"
 	config.vm.provision :shell, path: "Scripts/Install-Yeoman.sh"
 	config.vm.provision :shell, path: "Scripts/Install-Atom.sh"
 

@@ -4,6 +4,8 @@ echo '**********'
 
 sudo add-apt-repository ppa:webupd8team/atom
 sudo apt-get update
-sudo apt-get install atom
+sudo apt-get install -y atom
 
-#apm install omnisharp-atom
+sudo apm upgrade
+
+sudo apm install omnisharp-atom
