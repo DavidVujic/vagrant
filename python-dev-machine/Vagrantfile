@@ -1,0 +1,21 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+	config.vm.box = "box-cutter/ubuntu1504-desktop"
+	
+	config.vm.provision :shell, path: "Scripts/Install-Languages.sh"
+	config.vm.provision :shell, path: "Scripts/Install-Zip.sh"
+	config.vm.provision :shell, path: "Scripts/Install-Git.sh"
+	config.vm.provision :shell, path: "Scripts/Install-xml-and-xslt-libs.sh"
+	config.vm.provision :shell, path: "Scripts/Install-Node.sh"
+	
+	config.vm.provider "virtualbox" do |v|
+		v.name = "python-dev-machine"
+		v.gui = true
+		v.cpus = 2
+		v.memory = 8192
+	end
+end
